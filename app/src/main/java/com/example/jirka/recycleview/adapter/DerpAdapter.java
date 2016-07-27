@@ -105,7 +105,7 @@ public class DerpAdapter extends RecyclerView.Adapter<DerpAdapter.DerpHolder>{
             super(itemView);
 
             tvTitle = (TextView) itemView.findViewById(R.id.lblItemtext);
-            imIcon = (ImageView) itemView.findViewById(R.id.item_icon);
+            imIcon = (ImageView) itemView.findViewById(R.id.im_item_icon);
             container = itemView.findViewById(R.id.cont_item_root);   // zde není nutné přetypování - findViewById výsledek je ID view, což je id layoutu
         }
     }

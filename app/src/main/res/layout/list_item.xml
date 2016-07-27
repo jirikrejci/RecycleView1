@@ -10,19 +10,50 @@
     >
 
     <ImageView
-        android:id="@+id/item_icon"
+        android:id="@+id/im_item_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:paddingLeft="16dp"
-        android:src="@android:drawable/ic_menu_edit"
+        android:src="@drawable/ic_tonality"
         />
 
     <TextView
         android:id="@+id/lblItemtext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/im_item_icon"
+        android:layout_marginLeft="72dp"
+        android:layout_marginRight="48dp"
+        android:ellipsize="end"
+        android:fontFamily="sans-serif"
+        android:singleLine="true"
+        android:text="title dummy text"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        />
+
+    <TextView
+        android:id="@+id/lblItemSubtitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="subtitle dummy text"
+        android:layout_below="@id/lblItemtext"
+        android:layout_marginLeft="72dp"
+        android:layout_marginRight="48dp"
+        android:ellipsize="end"
+        android:fontFamily="sans-serif"
+        android:singleLine="true"
+        android:textSize="14sp"
+        />
+
+    <ImageView
+        android:id="@+id/im_item_icon_seccondary"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:paddingLeft="8dp"
-        android:text="Dummy text"/>
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:clickable="true"
+        android:src="@drawable/ic_star_border"
+        android:padding="16dp"
+        android:background="@drawable/background_state_drawable"/>
 </RelativeLayout>
