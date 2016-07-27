@@ -13,7 +13,6 @@ import com.example.jirka.recycleview.R;
 import com.example.jirka.recycleview.model.ListItem;
 
 import java.util.List;
-import java.util.zip.Inflater;
 
 /**
  * Created by Jirka on 26.7.2016.
@@ -22,6 +21,18 @@ public class DerpAdapter extends RecyclerView.Adapter<DerpAdapter.DerpHolder>{
 
     private List<ListItem> listData;
     private LayoutInflater inflater;
+
+    private ItemClickCallback itemClickCallback;
+
+    public interface ItemClickCallback {
+        void onItemClick (int p);  // vystřelí (will fire) vždy když uživatel klikne kamkoliv krom seccondary icon
+        void onSecondaryIconCllick (int p);
+
+    }
+
+    public void setItemClickCallback (final ItemClickCallback itemClickCallback) {
+        this.itemClickCallback = itemClickCallback;
+    }
 
     public DerpAdapter (List<ListItem> listData, Context c) {
         this.listData = listData;
@@ -79,9 +90,12 @@ public class DerpAdapter extends RecyclerView.Adapter<DerpAdapter.DerpHolder>{
      */
     @Override
     public void onBindViewHolder(DerpHolder holder, int position) {
-        ListItem item = listData.get(position);
+        ListItem item = listData.get(position);  // získání aktivní ListItem
         holder.tvTitle.setText(item.getTitle());  // tvTitle dané položky se naplní z getteru položky
-        holder.imIcon.setImageResource(item.getImageResID());   //setImageResource si jako zdroj bere ID ikony z resouce inventory uloženém v holderu přes getter
+        holder.imThumbnail.setImageResource(item.getImageResID());   //setImageResource si jako zdroj bere ID ikony z resouce inventory uloženém v holderu přes getter
+        holder.tvSubtitle.setText(item.getSubtitle());
+        holder.imSeccondaryIcon.setImageResource(item.isFavourite()? R.drawable.ic_star: R.drawable.ic_star_border);
+
     }
 
     /**
@@ -95,18 +109,42 @@ public class DerpAdapter extends RecyclerView.Adapter<DerpAdapter.DerpHolder>{
     }
 
     // view holder přiřazuje data do view
-    class DerpHolder extends RecyclerView.ViewHolder {
+    class DerpHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+
+
+        // inner variavbles
 
         private TextView tvTitle;
-        private ImageView imIcon;
+        private TextView tvSubtitle;
+        private ImageView imThumbnail;
+        private ImageView imSeccondaryIcon;
         private View container;   //  bude potřeba až při definování OnClick;
 
         public DerpHolder(View itemView) {    // toto je constructor
             super(itemView);
 
             tvTitle = (TextView) itemView.findViewById(R.id.lblItemtext);
-            imIcon = (ImageView) itemView.findViewById(R.id.im_item_icon);
+            tvSubtitle = (TextView) itemView.findViewById(R.id.lblItemSubtitle);
+            imThumbnail = (ImageView) itemView.findViewById(R.id.im_item_icon);
+            imSeccondaryIcon = (ImageView) itemView.findViewById(R.id.im_item_icon_seccondary);
             container = itemView.findViewById(R.id.cont_item_root);   // zde není nutné přetypování - findViewById výsledek je ID view, což je id layoutu
+
+            //nastavení listeneru
+            container.setOnClickListener(this);
+            imSeccondaryIcon.setOnClickListener(this);
+        }
+
+        /**
+         * Called when a view has been clicked.
+         ** @param v The view that was clicked.
+         */
+        @Override
+        public void onClick(View v) {
+            if (v.getId() == R.id.cont_item_root) {
+                itemClickCallback.onItemClick(getAdapterPosition());
+            } else {
+                itemClickCallback.onSecondaryIconCllick(getAdapterPosition());
+            }
         }
     }
 
