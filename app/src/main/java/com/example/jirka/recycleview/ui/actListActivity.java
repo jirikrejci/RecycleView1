@@ -66,3 +66,5 @@ public class actListActivity extends AppCompatActivity implements DerpAdapter.It
 
     }
 }
+
+// tohle je BranchCardViews
