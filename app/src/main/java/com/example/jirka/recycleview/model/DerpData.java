@@ -53,7 +53,9 @@ public class DerpData {
             for (int i = 0; i < titles.length && i < icons.length; i++) {
                 ListItem item = new ListItem();
                 item.setTitle(String.valueOf(x*3 + i)  + ": " + titles[i] );
-                item.setImageResID(icons[i]);
+                item.setSubtitle(subTitles[i]);
+                //item.setImageResID(icons[i]);
+                item.setImageResID(icon);
                 data.add(item);
             }
         }

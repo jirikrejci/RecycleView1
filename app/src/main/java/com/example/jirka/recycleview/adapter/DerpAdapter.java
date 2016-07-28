@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.example.jirka.recycleview.R;
 import com.example.jirka.recycleview.model.ListItem;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,7 +23,13 @@ public class DerpAdapter extends RecyclerView.Adapter<DerpAdapter.DerpHolder>{
     private List<ListItem> listData;
     private LayoutInflater inflater;
 
-    private ItemClickCallback itemClickCallback;
+    public void setListData (ArrayList<ListItem> exerciseList) {
+        this.listData.clear();
+        this.listData.addAll(exerciseList);
+    }
+
+
+    private ItemClickCallback itemClickCallback;  // sem se uloží odkaz na this z hlavní aktivity - instance hlavní aktivity, aby se mohly volat funkce z hlavní aktivity
 
     public interface ItemClickCallback {
         void onItemClick (int p);  // vystřelí (will fire) vždy když uživatel klikne kamkoliv krom seccondary icon
@@ -133,6 +140,9 @@ public class DerpAdapter extends RecyclerView.Adapter<DerpAdapter.DerpHolder>{
             container.setOnClickListener(this);
             imSeccondaryIcon.setOnClickListener(this);
         }
+
+
+
 
         /**
          * Called when a view has been clicked.
